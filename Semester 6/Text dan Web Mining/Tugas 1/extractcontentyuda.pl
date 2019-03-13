@@ -3,7 +3,6 @@
 # Program ini digunakan untuk mengekstrak bagian konten dari sebuah file HTML
 #
 # Author: Taufik Fuadi Abidin
-# Modified by Budi Gunawan
 # Department of Informatics
 # College of Science, Syiah Kuala Univ
 #
@@ -19,7 +18,8 @@
 # 3. Download Class-Accessor-Lvalue-0.11.tar.gz and install
 # 4. Download Class-Accessor-0.34.tar.gz and install
 # 5. Download Want-0.18.tar.gz and install
-# 6. Install Lingua::EN::Sentence
+
+# Modified by Yuda Aditya 2019
 
 use strict;
 use warnings;
@@ -66,7 +66,7 @@ foreach my $file (@files){
   }
 
   # get link
-  if( $html =~ /<meta property="og:url" content="(.*?)" \/>/){
+  if( $html =~ /<meta property="og:url" content=(.*?)>/){ # untuk mengambil link yang disimpan pada meta prop
    my $linknya = $1;
     print OUT "<link>$linknya</link>\n";
   }
@@ -87,14 +87,14 @@ sub clean_str {
   #$str =~ s/[\:\]\|\[\?\!\@\#\$\%\*\&\,\/\\\(\)\;"]+//g;
   $str =~ s/[\]\|\[\@\#\$\%\*\&\\\(\)\"]+//g;
   $str =~ s/-/ /g;
-  $str =~ s/\n+//g;
+  $str =~ s/\n+/ /g;
   $str =~ s/\s+/ /g;
   $str =~ s/^\s+//g;
   $str =~ s/\s+$//g;
   $str =~ s/^$//g;
   return $str;
 }
-
+# untuk membagi content
 sub bagi_content {
   my $kal = shift;
   my @sref = split m/(?<=[.!?])\s+/m, $kal; #membagi berdasarkan tanda baca dalam []
